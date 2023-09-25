@@ -8,7 +8,7 @@
         bucket: security
         object: SQLite
         dest: /mnt/data/security/SQLite
-        endpoint: http://minio-server:9000  # Replace with your MinIO server endpoint
-        aws_access_key: your_access_key
-        aws_secret_key: your_secret_key
+        endpoint: http://minio-server:9001 # Replace with your MinIO server endpoint
+        aws_access_key: admin
+        aws_secret_key: gqfxQz1AiAm
       delegate_to: 10.10.5.76
