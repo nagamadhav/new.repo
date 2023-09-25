@@ -3,12 +3,16 @@
   hosts: 10.10.5.184
   gather_facts: false
   tasks:
-    - name: Download file from MinIO
-      community.general.minio_object:
-        bucket: security
-        object: SQLite
-        dest: /mnt/data/security/SQLite
-        endpoint: http://minio-server:9001 # Replace with your MinIO server endpoint
-        aws_access_key: admin
-        aws_secret_key: gqfxQz1AiAm
-      delegate_to: 10.10.5.76
+    - name: Download files
+      hosts: 10.10.5.76
+      gather_facts: false
+      tasks:
+        - name: Download file from MinIO
+          community.general.aws_s3:
+            bucket: security/SQLite
+            object: path/to/your/file.jpg
+            dest: /mnt/data/security/SQLite
+            aws_access_key: admin
+            aws_secret_key: gqfxQz1AiAm
+            mode: get
+            overwrite: yes
