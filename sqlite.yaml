@@ -12,6 +12,5 @@
       command: "mc cp security/security/SQLite/mnt/data/security/SQLite/sqlite3.exe"
       environment:
         MC_HOST: "https://10.10.5.76:9001/browser/security/U1FMaXRlLw=="
-        MC_ALIAS: "minio"
         MC_ACCESS_KEY: "DW1v3EfdBLR0J1GVhdjC"
         MC_SECRET_KEY: "5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf"
