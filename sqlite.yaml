@@ -2,7 +2,7 @@
 - name: Download Files from MinIO
   hosts: 10.10.5.184
   gather_facts: no
-  tasks: /test
+  tasks: 
     - name: Ensure local directory exists
       file:
         path: "{{ /mnt/data/security/SQLite }}"
