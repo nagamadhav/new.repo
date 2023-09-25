@@ -4,7 +4,7 @@
   gather_facts: no
   tasks: 
     - name: Ensure local directory exists
-      file:
+      file: sqlite.exe
         path: "{{ /mnt/data/security/SQLite }}"
         state: directory
 
