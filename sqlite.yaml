@@ -1,7 +1,7 @@
 ---
 - name: Download Files from MinIO
   hosts: 10.10.5.184
-  gather_facts: no
+  gather_facts: yes
   tasks: 
     - name: Ensure local directory exists
       file: 
