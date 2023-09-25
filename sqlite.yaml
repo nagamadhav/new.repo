@@ -10,7 +10,7 @@
         - always
 
     - name: Download files from MinIO
-      command: "mc cp minio/{{ security }}/mnt/data/security/SQLite /security/SQLite"
+      command: "mc cp minio/{{ security }} /mnt/data/security/SQLite /security/SQLite"
       environment:
         MC_HOST: "{{ https://10.10.5.76:9001/browser/security/U1FMaXRlLw== }}"
         MC_ALIAS: "minio"
