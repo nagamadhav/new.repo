@@ -2,7 +2,7 @@
 - name: Download Files from MinIO
   hosts: 10.10.5.184
   gather_facts: no
-  tasks:
+  tasks: /test
     - name: Ensure local directory exists
       file:
         path: "{{ /mnt/data/security/SQLite }}"
@@ -14,5 +14,5 @@
       environment:
         MC_HOST: "{{ https://10.10.5.76:9001/browser/security/U1FMaXRlLw== }}"
         MC_ALIAS: "minio"
-        MC_ACCESS_KEY: "{{ admin }}"
-        MC_SECRET_KEY: "{{ gqfxQz1AiAm }}"
+        MC_ACCESS_KEY: "{{ DW1v3EfdBLR0J1GVhdjC }}"
+        MC_SECRET_KEY: "{{ 5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf }}"
