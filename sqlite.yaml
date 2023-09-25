@@ -5,11 +5,11 @@
   tasks: 
     - name: Ensure local directory exists
       file: 
-        path: "{{ /mnt/data/security/SQLite }}"
+        path: "/mnt/data/security/SQLite"
         state: directory
 
     - name: Download files from MinIO
-      command: "mc cp security/security/SQLite/mnt/data/security/SQLite/"
+      command: "mc cp security/security/SQLite/mnt/data/security/SQLite/sqlite3.exe"
       environment:
         MC_HOST: "https://10.10.5.76:9001/browser/security/U1FMaXRlLw=="
         MC_ALIAS: "minio"
