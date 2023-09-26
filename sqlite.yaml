@@ -4,5 +4,5 @@
   tasks:
     - name: Download file from Minio
       win_get_url:
-        url: "{{ https://10.10.5.76:9001/browser/security/U1FMaXRlLw== }}/{{ security }}/{{ security/SQLite/ }}"
+        url: "{{ https://10.10.5.76:9001 }}/{{ security }}/{{ security/SQLite/ }}"
         dest: C:/mnt/data/security/SQLite
