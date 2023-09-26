@@ -1,10 +1,7 @@
 ---
 - name: Download files from MinIO
   hosts: 10.10.5.76
-  gather_facts: false
-
- 
-
+  gather_facts: no
   tasks:
     - name: Download files
       hosts: 10.10.5.184
