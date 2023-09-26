@@ -1,0 +1,21 @@
+---
+- name: Download Files from MinIO
+  hosts: 10.10.5.184
+  gather_facts: yes
+  tasks:
+    - name: Ensure local directory exists
+      win_file:
+        path: C:\myfiles
+        state: directory
+
+    - name: Download files from MinIO
+      win_shell: |
+        $minioURL = "https://10.10.5.76:9001"  # Replace with your MinIO server URL
+        $accessKey = "DW1v3EfdBLR0J1GVhdjC"
+        $secretKey = "5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf"
+
+        # Download files from MinIO to the local directory
+        aws s3 cp s3://security//mnt/data/security/SQLite C:\myfiles --recursive --region us-east-1  # Replace with your bucket and path
+
+      args:
+        executable: powershell.exe
