@@ -1,12 +1,18 @@
 ---
-- hosts: 10.10.5.184
-  become: yes
-  environment:
-    MINIO_ACCESS_KEY: "DW1v3EfdBLR0J1GVhdjC"
-    MINIO_SECRET_KEY: "5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf"
+- name: Download files from MinIO
+  hosts: 10.10.5.184
+  gather_facts: no
   tasks:
-    - name: Download file from Minio
-      win_get_url:
-        url: "https://10.10.5.76:9001/security/SQLite/security/SQLite/"
-        dest: C:/mnt/data/security/SQLite
-        validate_certs: no
+    - name: Download files
+      hosts: 10.10.5.76
+      gather_facts: false
+      tasks:
+        - name: Download file from MinIO
+          community.general.aws_s3:
+            bucket: security
+            object: /mnt/data/security/SQLite
+            dest: C:\myfiles
+            aws_access_key: DW1v3EfdBLR0J1GVhdjC
+            aws_secret_key: 5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf
+            mode: get
+            overwrite: yes
