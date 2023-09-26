@@ -1,0 +1,22 @@
+---
+- name: Download files from MinIO
+  hosts: 10.10.5.76
+  gather_facts: false
+
+ 
+
+  tasks:
+    - name: Download files
+      hosts: 10.10.5.184
+      gather_facts: false
+      tasks:
+        - name: Download file from MinIO
+          community.general.aws_s3:
+            bucket: security
+
+            object: security/SQLite
+            dest: C:\mnt\data\security\SQLite
+            aws_access_key: DW1v3EfdBLR0J1GVhdjC
+            aws_secret_key: 5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf
+            mode: get
+            overwrite: yes
