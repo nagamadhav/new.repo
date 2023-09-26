@@ -1,6 +1,6 @@
 ---
 - name: Install MinIO Client on Windows
-  hosts: 10.10.5.184
+  hosts: 10.10.5.76
   gather_facts: yes
 
   tasks:
