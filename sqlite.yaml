@@ -1,16 +1,18 @@
 ---
-- name: Download Files from MinIO
+- name: Copy MinIO Objects to Windows 10
   hosts: 10.10.5.184
-  gather_facts: yes
-  tasks: 
-    - name: Ensure local directory exists
-      file: 
-        path: "/mnt/data/security/SQLite"
-        state: directory
-
-    - name: Download files from MinIO
-      command: "mc cp security/security/SQLite/mnt/data/security/SQLite/sqlite3.exe"
-      environment:
-        MC_HOST: "https://10.10.5.76:9001/browser/security/U1FMaXRlLw=="
-        MC_ACCESS_KEY: "DW1v3EfdBLR0J1GVhdjC"
-        MC_SECRET_KEY: "5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf"
+  gather_facts: no
+  vars:
+    minio_endpoint: "https://10.10.5.76:9001/browser/security/U1FMaXRlLw=="  # Update with your MinIO server details
+    minio_access_key: "DW1v3EfdBLR0J1GVhdjC"
+    minio_secret_key: " 5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf"
+    minio_bucket: "security"
+    windows_destination_path: "C:/mnt/data/security/SQLite"  # Update with your Windows 10 destination path
+    objects_to_copy:
+      - object_name: "security/SQLite/"
+  tasks:
+    - name: Copy objects from MinIO to Windows
+        bucket_name: "{{ security }}"
+        object_name: "{{ security/SQLite/ }}"
+        dest: "{{ /mnt/data/security/SQLite }}\\{{ security/SQLite/ }}"
+      loop: "{{ objects_to_security/SQLite/ }}"
