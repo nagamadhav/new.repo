@@ -5,7 +5,7 @@
   tasks:
     - name: Download files
       hosts: 10.10.5.76
-      gather_facts: false
+      gather_facts: no
       tasks:
         - name: Download file from MinIO
           community.general.aws_s3:
