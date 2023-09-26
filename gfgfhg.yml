@@ -1,18 +1,12 @@
----
-- name: Download files from MinIO
-  hosts: 10.10.5.184
+- name: Download files from MinIO to Windows
+  hosts: 10.10.5.184  # Replace with the actual name or group of your Windows host(s)
   gather_facts: no
   tasks:
-    - name: Download files
-      hosts: 10.10.5.76
-      gather_facts: no
-      tasks:
-        - name: Download file from MinIO
-          community.general.aws_s3:
-            bucket: security
-            object: /mnt/data/security/SQLite
-            dest: C:\myfiles
-            aws_access_key: DW1v3EfdBLR0J1GVhdjC
-            aws_secret_key: 5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf
-            mode: get
-            overwrite: yes
+    - name: Download file from MinIO
+      community.general.aws_s3:
+        bucket: security # Replace with your MinIO bucket name
+        object: /mnt/data/security/SQLite  # Replace with the object path of the file to download
+        dest: C:\myfiles  # Replace with the destination path on your Windows host
+        aws_access_key: DW1v3EfdBLR0J1GVhdjC  # Replace with your MinIO access key
+        aws_secret_key: 5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf  # Replace with your MinIO secret key
+        mode: get
