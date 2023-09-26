@@ -1,6 +1,6 @@
 ---
 - hosts: 10.10.5.184
-  become: yes
+  become: no
   tasks:
     - name: Download file from Minio
       win_get_url:
