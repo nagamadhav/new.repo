@@ -1,0 +1,12 @@
+---
+- hosts: 10.10.5.184
+  become: yes
+  environment:
+    MINIO_ACCESS_KEY: "DW1v3EfdBLR0J1GVhdjC"
+    MINIO_SECRET_KEY: "5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf"
+  tasks:
+    - name: Download file from Minio
+      win_get_url:
+        url: "https://10.10.5.76:9001/security/SQLite/security/SQLite/"
+        dest: C:/mnt/data/security/SQLite
+        validate_certs: no
