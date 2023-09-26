@@ -1,0 +1,23 @@
+---
+- name: Install MinIO Client on Windows
+  hosts: 10.10.5.184
+  gather_facts: yes
+
+  tasks:
+    - name: Ensure MinIO Client Directory Exists
+      win_file:
+        path: C:\mc
+        state: directory
+
+    - name: Download MinIO Client Binary
+      win_get_url:
+        url: https://dl.min.io/client/mc/release/windows-amd64/mc.exe  # URL for downloading mc.exe
+        dest: C:\mc\mc.exe
+        validate_certs: no
+
+    - name: Add mc.exe to PATH
+      win_environment:
+        name: PATH
+        value: C:\mc
+        state: present
+        permanent: yes
