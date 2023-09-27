@@ -1,19 +1,18 @@
 ---
-- name: Download files from MinIO
+- name: Download Files from MinIO
   hosts: 10.10.5.184
-  gather_facts: yes
- 
+  gather_facts: no
+
   tasks:
-    - name: Download files
-      hosts: 10.10.5.76
-      gather_facts: yes
-      tasks:
-        - name: Download file from MinIO
-          community.general.aws_s3:
-            bucket: security
-            object: /mnt/data/security/SQLite
-            dest: C:\mc
-            aws_access_key: DW1v3EfdBLR0J1GVhdjC
-            aws_secret_key:  5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf
-            mode: get
-            overwrite: yes
+    - name: Ensure local directory exists
+      file:
+        path: /mnt/data/security/SQLite
+        state: directory
+
+    - name: Download files from MinIO
+      command: mc cp minio/security/C:\mc sqldiff.exe /path/to/local/storage/
+      environment:
+        MC_HOST: https://10.10.5.76:9001
+        MC_ALIAS: minio
+        MC_ACCESS_KEY: DW1v3EfdBLR0J1GVhdjC
+        MC_SECRET_KEY: 5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf
