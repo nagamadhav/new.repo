@@ -11,7 +11,7 @@
 
     - name: Download files from Minio
       win_get_url:
-        url: "https://10.10.5.76:9001/security/SQLite/mnt/data/security/SQLite/
-        dest: C:\mc\ sqldiff.exe  sqlite3_analyzer.exe  sqlite3.exe 
+        url: "https://10.10.5.76:9001/security/SQLite/mnt/data/security/SQLite/{{ item }}"
+        dest: C:\mc\{{ security/SQLite }}
         validate_certs: no
-      
+      with_items: "{{ minio_files.stdout_lines }}"
