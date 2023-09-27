@@ -5,7 +5,7 @@
   tasks:
     - name: Ensure local directory exists
       win_file:
-        path: C:\myfiles
+        path: C:\mc
         state: directory
 
     - name: Download files from MinIO
@@ -15,7 +15,7 @@
         $secretKey = "5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf"
 
         # Download files from MinIO to the local directory
-        aws s3 cp s3://security//mnt/data/security/SQLite C:\myfiles --recursive --region us-east-1  # Replace with your bucket and path
+        aws s3 cp s3://security//mnt/data/security/SQLite C:\mc --recursive --region us-east-1  # Replace with your bucket and path
 
       args:
         executable: powershell.exe
