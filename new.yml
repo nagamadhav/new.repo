@@ -5,12 +5,12 @@
 
   tasks:
     - name: Ensure local directory exists
-      file:
-        path: /mnt/data/security/SQLite
+      file: 
+        path: C:\mc
         state: directory
 
     - name: Download files from MinIO
-      command: mc cp minio/security/C:\mc sqldiff.exe /path/to/local/storage/
+      command: mc cp minio/security/C:\mc sqldiff.exe / /mnt/data/security/SQLite/
       environment:
         MC_HOST: https://10.10.5.76:9001
         MC_ALIAS: minio
