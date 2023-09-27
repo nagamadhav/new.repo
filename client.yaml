@@ -15,9 +15,4 @@
         dest: C:\mc\mc.exe
         validate_certs: no
 
-    - name: Add mc.exe to PATH
-      win_environment:
-        name: PATH
-        value: C:\mc
-        state: present
-        permanent: yes
+    
