@@ -1,16 +1,17 @@
----
-- name: Download files from MinIO
-  hosts: 10.10.5.184
-  gather_facts: no
+- hosts: 10.10.5.184
+  become: yes
+  environment:
+    MINIO_ACCESS_KEY: "DW1v3EfdBLR0J1GVhdjC"
+    MINIO_SECRET_KEY: "5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf"
   tasks:
-    - name: Ensure local directory exists
-      file:
-        path: C:\mc
-        state: directory
+    - name: List files from Minio bucket
+      win_command: mc ls minio/security/mnt/data/security/SQLite/
+      register: minio_files
+      changed_when: false
 
-    - name: Download files from MinIO
-      command: mc cp minio/security/mnt/data/security/SQLite C:\mc/
-      environment:
-        MC_HOST: "https://10.10.5.76:9001"
-        MC_ACCESS_KEY: "DW1v3EfdBLR0J1GVhdjC"
-        MC_SECRET_KEY: "5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf"
+    - name: Download files from Minio
+      win_get_url:
+        url: "https://10.10.5.76:9001/security/SQLite/mnt/data/security/SQLite/{{ item }}"
+        dest: C:\mc\ sqldiff.exe  sqlite3_analyzer.exe  sqlite3.exe 
+        validate_certs: no
+      with_items: "{{ minio_files.stdout_lines }}"
