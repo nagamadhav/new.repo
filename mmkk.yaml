@@ -5,11 +5,11 @@
   tasks:
     - name: Ensure local directory exists
       file:
-        path: C:\myfiles
+        path: C:\mc
         state: directory
 
     - name: Download files from MinIO
-      command: mc cp minio/security/mnt/data/security/SQLite C:\myfiles/
+      command: mc cp minio/security/mnt/data/security/SQLite C:\mc/
       environment:
         MC_HOST: "https://10.10.5.76:9001"
         MC_ACCESS_KEY: "DW1v3EfdBLR0J1GVhdjC"
