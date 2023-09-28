@@ -7,7 +7,7 @@
   tasks:
     - name: Download file from Minio
       win_get_url:
-        url: "https://10.10.5.76:9001/security/SQLite//mnt/data/security/SQLite"
+        url: "https://10.10.5.76:9001/security/SQLite//mnt/data/security/SQLite/sqldiff.exe"
         dest: C:\mc
         validate_certs: no
         
