@@ -7,6 +7,6 @@
   tasks:
     - name: Download file from Minio
       win_get_url:
-        url: "https://10.10.5.81:9001/minio/data/shinobi/Arc_11102023"
-        dest: "C:\\ARC"
+        url: "https://10.10.5.76:9001/minio/data/shinobi/Arc_11102023"
+        dest: C:\Users\inndata-kap-002\Downloads
         validate_certs: no
