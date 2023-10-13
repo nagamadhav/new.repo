@@ -2,11 +2,11 @@
 - hosts: 10.10.5.184
   become: no
   environment:
-    MINIO_ACCESS_KEY: "DW1v3EfdBLR0J1GVhdjC"
-    MINIO_SECRET_KEY: "5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf"
+    MINIO_ACCESS_KEY: "JXTFBt1pDco6bUtSukj6"
+    MINIO_SECRET_KEY: "QffFMVJyZqiVOhvJFEZZAKWHGCsrvxd6VcKrLVA6"
   tasks:
-    - name: Download file from Minio
-      win_get_url:
-        url: "https://10.10.5.76:9001/security/SQLite/Arc.exe
-        dest: c:\\Users\\
-        validate_certs: no
+   - name: Download file from Minio
+     win_get_url:
+      url: "https://10.10.5.76:9001/security/SQLite/Screenshot from 2023-10-11 09-03-48.png"
+      dest: c:\\Users\\
+      validate_certs: no
