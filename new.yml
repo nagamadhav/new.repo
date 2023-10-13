@@ -1,18 +1,12 @@
 ---
-- name: Download Files from MinIO
-  hosts: 10.10.5.184
-  gather_facts: no
-
+- hosts: 10.10.5.182
+  become: yes
+  environment:
+    MINIO_ACCESS_KEY: "DW1v3EfdBLR0J1GVhdjC"
+    MINIO_SECRET_KEY: "5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf"
   tasks:
-    - name: Ensure local directory exists
-      file: 
-        path: C:\mc
-        state: directory
-
-    - name: Download files from MinIO
-      command: mc cp minio/security/C:\mc sqldiff.exe / /mnt/data/security/SQLite/
-      environment:
-        MC_HOST: https://10.10.5.76:9001
-        MC_ALIAS: minio
-        MC_ACCESS_KEY: DW1v3EfdBLR0J1GVhdjC
-        MC_SECRET_KEY: 5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf
+    - name: Download file from Minio
+      win_get_url:
+        url: "https://10.10.5.81:9001/minio/data/shinobi/Arc_11102023"
+        dest: "C:\\ARC"
+        validate_certs: no
