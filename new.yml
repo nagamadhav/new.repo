@@ -9,4 +9,4 @@
       win_get_url:
         url: "https://10.10.5.81:9001/minio/data/shinobi/Arc_11102023"
         dest: C:\Arc
-        validate_certs: no
+        validate_certs: yes
