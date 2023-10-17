@@ -1,28 +1,20 @@
 ---
-- hosts: 10.10.5.182
-  become: yes
+- name: Uninstall SQLite on Windows
+  hosts: 10.10.5.181
+  gather_facts: no
   tasks:
-    - name: Add Grafana APT repository key
-      apt_key:
-        url: https://packages.grafana.com/gpg.key
-        state: present
+    - name: Stop SQLite if running
+      win_service:
+        name: SQLiteServiceName  # Replace with the actual SQLite service name
+        state: stopped
+      ignore_errors: yes
 
-    - name: Add Grafana APT repository
-      apt_repository:
-        repo: deb https://packages.grafana.com/oss/deb stable main
-        state: present
+    - name: Remove SQLite directory
+      win_file:
+        path: C:\SQLite  # Replace with the path where SQLite is installed
+        state: absent
 
-    - name: Update apt package cache
-      apt:
-        update_cache: yes
-
-    - name: Install Grafana
-      apt:
-        name: grafana
-        state: present
-
-    - name: Start Grafana service
-      service:
-        name: grafana-server
-        state: started
-        enabled: yes
+    - name: Remove Temp Directory
+      win_file:
+        path: C:\Temp
+        state: absent
