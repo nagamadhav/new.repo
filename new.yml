@@ -1,12 +1,24 @@
 ---
-- hosts: 10.10.5.184
-  become: no
-  environment:
-    MINIO_ACCESS_KEY: "JXTFBt1pDco6bUtSukj6"
-    MINIO_SECRET_KEY: "QffFMVJyZqiVOhvJFEZZAKWHGCsrvxd6VcKrLVA6"
+- name: Install SQLite on Windows
+  hosts: 10.10.5.182
+  gather_facts: no
   tasks:
-   - name: Download file from Minio
-     win_get_url:
-      url: "https://10.10.5.81:9091/test/Arc.exe/"
-      dest: c:\\WinRAR\\
-      validate_certs: no
+    - name: Create Temp Directory
+      win_file:
+        path: C:\Temp
+        state: directory
+    - name: Download SQLite precompiled binaries
+      win_get_url:
+        url: https://www.sqlite.org/2023/sqlite-tools-win32-x86-3430100.zip
+        dest: C:\Temp\sqlite-tools-win32-x86-3430100.zip
+    - name: Extract SQLite binaries
+      win_unzip:
+        src: C:\Temp\sqlite-tools-win32-x86-3430100.zip
+        dest: C:\SQLite
+    - name: Add SQLite to PATH
+      win_path:
+        elements:
+          - C:\SQLite
+        state: present
+
+has context men
