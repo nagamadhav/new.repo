@@ -1,7 +1,7 @@
 ---
 - name: Download and Copy Minio to Windows
   hosts: 10.10.5.181
-  gather_facts: yes
+  gather_facts: no
   become: yes
   tasks:
     - name: Create Minio Directory
@@ -12,4 +12,4 @@
     - name: Download Minio
       win_get_url:
         url: https://10.10.5.81:9091/server/minio/release/windows-amd64/minio.exe
-        dest: C:\Minio\minio.exe
+        dest: C:/mc
