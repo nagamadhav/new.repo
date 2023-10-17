@@ -1,0 +1,31 @@
+---
+- name: Download and Copy Minio to Windows
+  hosts: 10.10.5.181  # Replace with the IP address or hostname of your Windows machine
+  gather_facts: no
+  tasks:
+    - name: Create Minio Directory
+      win_file:
+        path: C:\Minio
+        state: directory
+
+    - name: Download Minio
+      win_get_url:
+        url: https://http://10.10.5.81:9091/browser/arc/QXJjXzExMTAyMDIzLw==/windows-amd64/minio.exe  # Download Minio for Windows (64-bit)
+        dest: arc/Arc_11102023
+
+    - name: Add Minio to PATH
+      win_path:
+        elements:
+          - C:\Minio
+        state: present
+
+    - name: Check Minio Version
+      command: minio.exe --version
+      args:
+        chdir: C:\Minio
+      register: minio_version_output
+      changed_when: false
+
+    - name: Display Minio Version
+      debug:
+        var: minio_version_output.stdout_lines
