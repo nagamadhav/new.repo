@@ -1,20 +1,25 @@
 ---
-- name: Uninstall SQLite on Windows
+- name: Uninstall SQLite from Windows
   hosts: 10.10.5.181
-  gather_facts: yes
+  gather_facts: no
   tasks:
-    - name: Stop SQLite if running
-      win_service:
-        name: SQLiteServiceName  # Replace with the actual SQLite service name
-        state: stopped
-      ignore_errors: yes
-
-    - name: Remove SQLite directory
+    - name: Remove SQLite Directory
       win_file:
-        path: C:\SQLite  # Replace with the path where SQLite is installed
+        path: C:\SQLite
+        state: absent
+
+    - name: Remove SQLite Zip File
+      win_file:
+        path: C:\Temp\sqlite-tools-win32-x86-3430100.zip
         state: absent
 
     - name: Remove Temp Directory
       win_file:
         path: C:\Temp
+        state: absent
+
+    - name: Remove SQLite from PATH
+      win_path:
+        elements:
+          - C:\SQLite
         state: absent
