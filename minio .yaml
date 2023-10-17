@@ -1,18 +1,15 @@
 ---
 - name: Download and Copy Minio to Windows
   hosts: 10.10.5.181
-  gather_facts: no
+  gather_facts: yes
+  become: yes
   tasks:
     - name: Create Minio Directory
       win_file:
         path: C:\Minio
         state: directory
-      become: yes
-      become_user: Administrator  # Replace with the appropriate username
 
     - name: Download Minio
       win_get_url:
-        url: http://10.10.5.81/#/jobs/playbook/187/output/windows-amd64/minio.exe
-        dest: arc/Arc_11102023
-      become: yes
-      become_user: Administrator  # Replace with the appropriate username
+        url: https://10.10.5.81:9091/server/minio/release/windows-amd64/minio.exe
+        dest: C:\Minio\minio.exe
