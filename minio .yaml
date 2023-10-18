@@ -1,5 +1,5 @@
 ---
-- hosts: 10.10.5.184
+- hosts: 10.10.5.181
   become: no
   environment:
     MINIO_ACCESS_KEY: "JXTFBt1pDco6bUtSukj6"
@@ -7,6 +7,6 @@
   tasks:
    - name: Download file from Minio
      win_get_url:
-      url: "https://10.10.5.81:9091/security/SQLite/Screenshot from 2023-10-11 09-03-48.png"
+      url: "https://10.10.5.81:9091/arc/Arc_11102023"
       dest: c:\\Users\\
       validate_certs: no
