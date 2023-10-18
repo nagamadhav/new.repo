@@ -1,12 +1,30 @@
 ---
-- hosts: 10.10.5.181
-  become: no
-  environment:
-    MINIO_ACCESS_KEY: "JXTFBt1pDco6bUtSukj6"
-    MINIO_SECRET_KEY: "QffFMVJyZqiVOhvJFEZZAKWHGCsrvxd6VcKrLVA6"
+- name: Install and Configure Windows Exporter
+  hosts: your_windows_host  # Replace with the hostname or IP address of your Windows machine
+  gather_facts: yes
+  become: yes
   tasks:
-   - name: Download file from Minio
-     win_get_url:
-      url: "https://10.10.5.81:9091/arc/Arc_11102023"
-      dest: c:\\Users\\
-      validate_certs: no
+    - name: Create Exporter Directory
+      ansible.builtin.win_file:
+        path: C:\Prometheus\exporters
+        state: directory
+
+    - name: Download Windows Exporter
+      ansible.builtin.win_get_url:
+        url: https://github.com/prometheus-community/windows_exporter/releases/download/v{{ windows_exporter_version }}/windows_exporter-{{ windows_exporter_version }}-amd64.exe
+        dest: C:\Prometheus\exporters\windows_exporter.exe
+
+    - name: Set Windows Exporter Service
+      ansible.builtin.win_service:
+        name: WindowsExporter
+        binary_path_name: C:\Prometheus\exporters\windows_exporter.exe
+        start_mode: auto
+        state: started
+
+    - name: Open Port 9182 in Windows Firewall
+      ansible.builtin.win_firewall_rule:
+        name: "Windows Exporter"
+        localport: 9182
+        action: allow
+        enabled: yes
+        direction: in
