@@ -1,28 +1,28 @@
 ---
-- name: Install and Configure Windows Exporter
-  hosts: 10.10.5.181  # Replace with the hostname or IP address of your Windows machine
+- name: Install and Configure Windows Exporter for Prometheus
+  hosts: 10.10.5.181
   gather_facts: yes
   become: yes
   tasks:
     - name: Create Exporter Directory
-      ansible.builtin.win_file:
+      win_file:
         path: C:\Prometheus\exporters
         state: directory
 
-    - name: Download Windows Exporter
-      ansible.builtin.win_get_url:
+    - name: Download Windows Exporter Binary
+      win_get_url:
         url: https://github.com/prometheus-community/windows_exporter/releases/download/v{{ windows_exporter_version }}/windows_exporter-{{ windows_exporter_version }}-amd64.exe
         dest: C:\Prometheus\exporters\windows_exporter.exe
 
     - name: Set Windows Exporter Service
-      ansible.builtin.win_service:
+      win_service:
         name: WindowsExporter
         binary_path_name: C:\Prometheus\exporters\windows_exporter.exe
         start_mode: auto
         state: started
 
     - name: Open Port 9182 in Windows Firewall
-      ansible.builtin.win_firewall_rule:
+      win_firewall_rule:
         name: "Windows Exporter"
         localport: 9182
         action: allow
