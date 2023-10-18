@@ -1,6 +1,6 @@
 ---
 - name: Install and Configure Windows Exporter
-  hosts: your_windows_host  # Replace with the hostname or IP address of your Windows machine
+  hosts: 10.10.5.181  # Replace with the hostname or IP address of your Windows machine
   gather_facts: yes
   become: yes
   tasks:
