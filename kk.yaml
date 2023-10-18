@@ -1,21 +1,54 @@
----
-- name: Download Files from MinIO
-  hosts: 10.10.5.184
-  gather_facts: yes
+- name: Download and Configure Minio Client
+
+  hosts: 10.10.5.181
+
+  gather_facts: no
+
   tasks:
-    - name: Ensure local directory exists
-      win_file:
-        path: C:\mc
-        state: directory
+    - name: Create minio-client Folder
 
-    - name: Download files from MinIO
-      win_shell: |
-        $minioURL = "https://10.10.5.76:9001"  # Replace with your MinIO server URL
-        $accessKey = "DW1v3EfdBLR0J1GVhdjC"
-        $secretKey = "5VytN79seVFxeYmAmwLlYUF4O0rp0Hlnex50GyTf"
+      win_shell: New-Item -ItemType Directory -Path C:\\Users\\minio-client
 
-        # Download files from MinIO to the local directory
-        aws s3 cp s3://security//mnt/data/security/SQLite C:\mc --recursive --region us-east-1  # Replace with your bucket and path
+      become: no 
 
-      args:
-        executable: powershell.exe
+    - name: Download Minio Client
+
+      win_get_url:
+
+        url: "https://dl.min.io/client/mc/release/windows-amd64/mc.exe"
+
+        dest: "C:\\Users\\minio-client\\mc.exe"
+
+      register: download_result
+
+      ignore_errors:
+
+    - name: Verify Download
+
+      fail:
+
+        msg: "Failed to download Minio Client"
+
+      when: download_result.failed
+
+    - name: Configure Minio Client
+
+      win_shell: "C:\\Users\\minio-client\\mc.exe config host add minio {{ minio_server_url }} {{ minio_access_key }} {{ minio_secret_key }}"
+
+      vars:
+
+        minio_server_url: "http://10.10.5.81:9000"
+
+        minio_access_key: "minioadmin"
+
+        minio_secret_key: "minio_admin"
+
+    - name: Download an Object from Minio
+
+      win_shell: "C:\\Users\\minio-client\\mc.exe cp minio/arc/Arc_11102023 minio/arc/Record.db minio/arc/Replicadb C:\\Downloads\\ --recursive"
+
+      vars:
+
+        minio_bucket_name: "arc"
+
+      when: download_result.changed
