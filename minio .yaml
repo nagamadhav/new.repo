@@ -1,27 +1,12 @@
 ---
-- name: Download and Copy Minio Binary
-  hosts: 10.10.5.181 # Replace with the hosts or IP addresses of your target servers
-  become: yes
-  gather_facts: no
+- hosts: 10.10.5.184
+  become: no
+  environment:
+    MINIO_ACCESS_KEY: "JXTFBt1pDco6bUtSukj6"
+    MINIO_SECRET_KEY: "QffFMVJyZqiVOhvJFEZZAKWHGCsrvxd6VcKrLVA6"
   tasks:
-    - name: Create Minio Directory
-      ansible.builtin.file:
-        path: /mc  # Specify the destination directory on the target servers
-        state: directory
-
-    - name: Download Minio Binary
-      ansible.builtin.get_url:
-        url: https://10.10.5.81:9091/server/minio/release/linux-amd64/minio
-        dest: /path/to/destination/directory/minio  # Specify the destination path and filename on the target servers
-        mode: 0755  # Set the executable permission on the downloaded file
-        validate_certs: no  # Set to yes if you want to validate SSL/TLS certificates
-
-    - name: Verify Minio Binary
-      ansible.builtin.stat:
-        path: /mc  # Specify the destination path and filename
-      register: minio_binary
-
-    - name: Display Download Status
-      ansible.builtin.debug:
-        msg: "Minio binary has been downloaded and copied successfully."
-      when: minio_binary.stat.exists
+   - name: Download file from Minio
+     win_get_url:
+      url: "https://10.10.5.81:9091/security/SQLite/Screenshot from 2023-10-11 09-03-48.png"
+      dest: c:\\Users\\
+      validate_certs: no
